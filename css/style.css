@@ -1,0 +1,541 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(232, 232, 232);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: stretch;
+  width: 1200px;
+  height: 750px;
+  transition: all 0.7s;
+}
+
+.tasks {
+  z-index: 1;
+  transition: flex 0.7s cubic-bezier(0.46,-0.66, 0.43, 1.37);
+  display: flex;
+  flex: 0;
+  min-width: 0;
+  background-color: rgb(92, 188, 175);
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  overflow: hidden;
+}
+
+.tasks-active {
+  flex: 2;
+}
+
+.tasks-arrow {
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 25px;
+  top: calc(100vh - 25px);
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(250, 250, 250, 0.5);
+}
+
+.tasks-arrow span {
+  /*flex: 1;*/
+  color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  font-size: 2em;
+}
+
+.tasks-container {
+  flex: 0;
+  min-width: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  color: rgba(250, 250, 250, 1);
+  transition: flex 0.7s cubic-bezier(0.46,-0.66, 0.43, 1.37);
+}
+
+.tasks-container-active {
+  flex: 1;
+  visibility: visible;
+}
+
+.day-name {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 40px;
+}
+
+.close-tasks {
+  transform: rotate(45deg);
+  opacity: 0;
+  align-self: flex-start;
+  font-size: 20px;
+  transition: all 0.3s;
+  transition-delay: initial;
+  cursor: default;
+  font-weight: 100;
+}
+
+.close-tasks:hover {
+  transition-delay: initial;
+  transform: rotate(225deg);
+}
+
+.close-tasks-open {
+  transition-delay: 1s;
+  opacity: 1;
+}
+
+.this-date {
+  opacity: 0;
+  text-align: right;
+  flex: 1;
+  font-size: 20px;
+  transition: all 0.5s;
+  transition-delay: 0.3s;
+}
+
+.this-date-active {
+  opacity: 1;
+}
+
+.add-tasks {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.added-tasks {
+  display: flex;
+  flex-direction: column;
+  flex: 6;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.added-tasks::-webkit-scrollbar-track,
+{
+  margin: 5px;
+	background: transparent;
+}
+
+.added-tasks::-webkit-scrollbar
+{
+  width: 5px;
+	background: transparent;
+}
+
+.added-tasks::-webkit-scrollbar-thumb
+{
+  background: #fff;
+}
+
+.task {
+  display: flex;
+  align-content: space-between;
+  flex-direction: row;
+  flex-shrink: 0;
+  height: 50px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  background-color: rgba(250, 250, 250, 0.1);
+  border: 1px solid #FFF;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+  opacity: 1;
+  transition: all 0.4s;
+  transition: transform 0.2s;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.dragged-task {
+  opacity: 0.5;
+}
+
+.draggable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -moz-user-drag: element;
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+.task-name {
+  display: flex;
+  flex: 1;
+}
+
+.delete-task {
+  display: flex;
+  transform: rotate(45deg);
+  font-size: 20px;
+  cursor: default;
+  font-weight: 100;
+  top: 10px;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+.delete-task:hover {
+  transform: rotate(225deg);
+}
+
+.cross-visible {
+  opacity: 1;
+}
+
+.removed-task {
+  transform: translateX(200px);
+  opacity: 0;
+}
+
+.add-task {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.add-task form {
+  display: flex;
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.task-form {
+  opacity: 0;
+  transition: all 0.7s;
+}
+
+.form-visible {
+  opacity: 1;
+}
+
+.add-task input {
+  display: flex;
+  flex-grow: 1;
+  outline:0;
+  border: 0;
+  border-bottom: 1px solid #FFF;
+  background-color: inherit;
+  color: inherit;
+  font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 20px;
+}
+
+.add-task input::placeholder {
+  color: inherit;
+  font-family: "Roboto", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 20px;
+}
+
+.calendar {
+  z-index: 2;
+  display: flex;
+  flex: 3;
+  background-color: #fff;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  -webkit-border-top-right-radius: 20px;
+  -webkit-border-bottom-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -moz-border-radius-bottomright: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  -webkit-border-top-left-radius: 20px;
+  -webkit-border-bottom-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -moz-border-radius-bottomleft: 20px;
+  transition: all 0.7s;
+  overflow: hidden;
+}
+
+.calendar-active {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  -webkit-border-top-left-radius: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+  -moz-border-radius-topleft: 0px;
+  -moz-border-radius-bottomleft: 0px;
+}
+
+.calendar-container {
+  flex: 1;
+  /*min-width: 0;*/
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+.month-name {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 40px;
+}
+
+.prev-month, .next-month {
+  cursor: default;
+}
+
+.prev-month:hover, .next-month:hover {
+  color: rgb(232, 232, 232);
+}
+
+.now-month {
+  transition: all 0.3s;
+}
+
+.now-month-opacity {
+  opacity: 0;
+}
+
+.days {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.week, .day-names {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  /*border: 1px solid pink;
+  background-color: red;*/
+}
+
+.week div, .day-names div {
+  display: flex;
+  flex: 1;
+  /*border: 1px solid pink;
+  background-color: red;*/
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.day-names div {
+  color: rgb(150, 150, 150);
+}
+
+.day:hover {
+  background-color: rgb(232, 232, 232);
+}
+
+.today-background {
+  color: #fff;
+  background-color: rgba(92, 188, 175, 0.7);
+}
+
+.clicked-day-highlight {
+  background-color: rgba(92, 188, 175, 0.2);
+}
+
+.day-with-task {
+  color: #fff;
+  background-color: rgba(92, 188, 175, 0.5);
+}
+
+.sun {
+  color: rgba(250, 0, 0, 1)
+}
+
+
+@media only screen and (max-height: 650px) and (min-width: 501px){
+  .wrapper, .container {
+    min-height: 650px;
+  }
+}
+@media only screen and (max-height: 650px) and (max-width: 500px){
+  .wrapper, .container {
+    min-height: 400px;
+  }
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+  html. body, .wrapper {
+    height: 100%;
+    background-color: red;
+    /*max-height: 100%;*/
+  }
+
+  .wrapper {
+    width: 100%;
+    /*height: 100vh;*/
+    min-height: 65vh;
+    /*max-height: auto;*/
+  }
+
+  .container {
+    width: 100%;
+    height: 100vh;
+    /*max-height: auto;*/
+  }
+
+  .tasks {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+  }
+
+  .calendar {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-bottomleft: 0px;
+    -moz-border-radius-topright: 0px;
+    -moz-border-radius-bottomright: 0px;
+
+    .calendar-container {
+      min-height: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 960px) {
+
+  /*.wrapper {
+    min-height: 100%;
+  }*/
+
+  .container {
+    flex-direction: column;
+    min-height: 100vh;
+    /*min-height: 100%;*/
+  }
+
+  .container-active {
+    min-height: 200vh;
+  }
+
+  .tasks {
+    order: 2;
+  }
+
+  .tasks-active {
+    flex: 3;
+  }
+
+  .tasks-arrow-active {
+    visibility: visible;
+  }
+
+  .calendar {
+    order: 1;
+  }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+  .tasks-container {
+    padding: 25px;
+  }
+
+  .calendar-container {
+    padding: 25px;
+  }
+
+  .now-day {
+    font-size: 20px;
+  }
+
+  .this-date {
+    text-align: inherit;
+    margin-left: 5px;
+  }
+
+  .month-name {
+    font-size: 24px;
+  }
+
+  .week div, .day-names div {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-height: 400px) {
+
+  .tasks-container {
+    padding: 25px;
+  }
+
+  .calendar-container {
+    padding: 25px;
+  }
+
+  .now-day {
+    font-size: 20px;
+  }
+
+  .this-date {
+    text-align: inherit;
+    margin-left: 5px;
+  }
+
+  .month-name {
+    font-size: 24px;
+  }
+
+  .week div, .day-names div {
+    font-size: 16px;
+  }
+}
